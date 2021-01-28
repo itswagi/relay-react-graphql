@@ -1,0 +1,36 @@
+interface Node {
+    id: ID!
+}
+
+type Link implements Node {
+    id: ID!
+    title: String!
+    description: String!
+}
+
+type LinkConnection {
+    edges: [LinkEdge]
+    pageInfo: PageInfo!
+}
+
+type LinkEdge {
+    cursor: String!
+    node: Link
+}
+
+type Query {
+    allLinks: [Link]
+    viewer: Viewer
+    node(id: ID!): Node
+}
+
+type Viewer {
+    link(after: String, before: String, first: Int, last: Int): LinkConnection
+}
+
+type PageInfo {
+  hasNextPage: Boolean!
+  hasPreviousPage: Boolean!
+  startCursor: String
+  endCursor: String
+}
